@@ -32,5 +32,5 @@ public class class123 {
         } else {
             mapType(manager, returnType, method.getGenericReturnType());
         }
-    }
+ 
 }
