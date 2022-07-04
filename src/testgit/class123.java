@@ -30,6 +30,7 @@ public class class123 {
                 return;
             mapType(manager, returnType, k);
         } else {
+            mapType(manager, returnType, method.getGenericReturnType());
         }
     }
 }
