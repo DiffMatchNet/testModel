@@ -27,10 +27,6 @@ public class class123 {
             this.async = true;
             Type k = ((ParameterizedType)method.getGenericReturnType()).getActualTypeArguments()[0];
             if (k instanceof Class && ResultSet.class.isAssignableFrom((Class<?>)k))
-                return;
-            mapType(manager, returnType, k);
-        } else {
-            mapType(manager, returnType, method.getGenericReturnType());
         }
     }
 }
