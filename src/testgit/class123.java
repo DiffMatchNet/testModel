@@ -5,7 +5,12 @@ public class class123 {
         this.session = manager.getSession();
         this.statement = ps;
 
-      validateParameters();
+        if (method.isVarArgs())
+            throw new IllegalArgumentException(String.format("Invalid varargs method %s in @Accessor interface"));
+        if (ps.getVariables().size() != method.getParameterTypes().length)
+            throw new IllegalArgumentException(String.format("The number of arguments for method %s (%d) does not match the number of bind parameters in the @Query (%d)",
+                                                              method.getName(), method.getParameterTypes().length, ps.getVariables().size()));
+
 
         Class<?> returnType = method.getReturnType();
         if (Void.TYPE.isAssignableFrom(returnType) || ResultSet.class.isAssignableFrom(returnType))
@@ -28,11 +33,7 @@ public class class123 {
             mapType(manager, returnType, method.getGenericReturnType());
         }
     }
-private void validateParameters() {
-        if (method.isVarArgs())
-            throw new IllegalArgumentException(String.format("Invalid varargs method %s in @Accessor interface", method.getName()));
-
-        ColumnDefinitions variables = statement.getVariables();
+}
         Set<String> names = Sets.newHashSet();
         for (ColumnDefinitions.Definition variable : variables) {
             names.add(variable.getName());
